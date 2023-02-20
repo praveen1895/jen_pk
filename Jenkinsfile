@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    GITHUB_REPO = "your/repo"
+    GITHUB_REPO = "jen_pk"
   }
   stages {
     stage('Build') {
@@ -14,7 +14,7 @@ pipeline {
     always {
       script {
         // check if there are any new issues or labels
-        def events = checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'repo']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/' + env.GITHUB_REPO + '.git']]]
+        def events = checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'repo']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/' + env.GITHUB_REPO + '.git']]]
         for (event in events) {
           if (event.eventName == 'issues') {
             // perform actions for new issue
